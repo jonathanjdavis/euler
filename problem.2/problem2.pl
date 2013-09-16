@@ -16,4 +16,9 @@ while( $sum < 4000000 ){
 	$sum = sum @terms[-1,-2];
 }
 
-print join( ", ", @terms ) . "\n";
+my @even = grep { $_ % 2 == 0 } @terms;
+
+$sum = sum @even;
+
+print $sum . "\n";
+
