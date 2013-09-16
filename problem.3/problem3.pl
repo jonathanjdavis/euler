@@ -22,33 +22,28 @@ sub is_prime {
 	my @x = grep { factor( $v, $_ ) } 1..$v;
 
 	if( ( scalar @x == 2 ) and ( $x[0] == 1 ) and ( $x[1] == $v ) ){
-		print STDERR "Calculating $v..\n";
 		$PRIMES{$v}++;
 		return 1;
 	}
 	return 0;
 }
 
-sub f {
-	my $factor = 0;
-
-	print "Factoring " . join( ", ", @_ ) . "\n";
-	$factor *= $_ for @_;
-	return $factor;
-}
-
 sub prime_factor {
 	my $x = shift;
 
-	my $n = 1;
-	my @primes = ( 1 );
+	my $best ;
 
-	until( f( @primes ) == $x ){
-		push( @primes, $n ) if is_prime( $n );
-		$n++;
-		use Data::Dumper;
-		print Dumper( \@primes ) . "\n";
+	my ($max, $test) = ( $x, 3 );
+
+	while ( $max >= $test){
+		if ( is_prime( $test ) && ( $max % $test == 0)){
+			$best = $test;
+			$max = $max / $test;
+		} else {
+			$test = $test + 2;
+		}
 	}
+	return $best;
 }
 
-prime_factor 13195;
+print prime_factor( 600851475143 ) . "\n";
