@@ -1,41 +1,46 @@
 #!/usr/bin/perl
 use strict;
 
-sub divisible {
-	my $n = shift;
-	my $i = shift;
-
-	my $x = $i / $n;
-
-	#$x =~ /^\d+$/;
-	return ($x == int( $x ));
-}
-
 sub divisible_by {
-	my ( $n, $i ) = @_;
+	my ( $n, $max ) = @_;
 
-	my @divisibles = grep { divisible( $_ => $n ) } ( 1..$i );
-	return scalar @divisibles == $i;
+	$max = 20 unless $max;
+
+	for( my $i = 1; $i < $max; $i++ ){
+		return 0 unless ( $n % $i == 0 );
+	}
+	return 1;
 }
 
+# This method is only used for testing
 sub divisible_by_all_ten {
 
 	my $n = 1;
-	my $i = shift || 10;
+	my $i = 10;
 
 	N: while( $n ){
-		last N if divisible_by( $n, $i );
+		return $n if divisible_by( $n, $i );
 		$n++;
 	}
 
 	return $n;
 }
 
-my $ten = divisible_by_all_ten();
 
-while( 1 ){
-	last if divisible_by( $ten => 20 );
-	$ten += $ten;
+sub divisible_by_all_twenty {
+
+	my $n = 1;
+	my $i = 20;
+
+	N: while( $n ){
+		return $n if divisible_by( $n, $i );
+		$n++;
+	}
+
+	return $n;
 }
 
-print "$ten\n";
+
+my $twenty = divisible_by_all_twenty();
+
+print "$twenty\n";
