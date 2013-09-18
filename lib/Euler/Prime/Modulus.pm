@@ -5,8 +5,6 @@ my %PRIMES;
 sub load_cache {
 	my $filename = shift;
 
-	print STDERR "Loading primes cache from $filename\n";
-
 	open my $fd, "<$filename";
 	while( <$fd> ){
 		chomp;
@@ -37,10 +35,9 @@ sub import {
         }
 
 	my ( $package, $args ) = @_;
-	print STDERR "Importing with args [$args]\n";
-	if( $args =~ /\\+cache/ ){
+	if( $args =~ /\+cache/ ){
 		my $cachefilename = '/tmp/primes.txt';
-		if( $args =~ /\\+cache\s+(\S+)/ and -f $1 ){
+		if( $args =~ /\+cache\s+(\S+)/ and -f $1 ){
 			my $cachefilename = $1;
 		}
 		load_cache( $cachefilename );
