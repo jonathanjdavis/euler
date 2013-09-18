@@ -1,32 +1,8 @@
 #!/usr/bin/perl
 use strict;
-use Test::More;
 
-sub factor {
-	my ($test, $factor) = @_;
-
-	my $x = $test / $factor;
-	$x = int($x);
-	
-	return ( ( $x * $factor ) == $test );
-}
-
-# Keep a cache of prime numbers as we chug along..
-my %PRIMES = ();
-
-sub is_prime {
-	my $v = shift;
-
-	return 1 if defined $PRIMES{$v};
-
-	my @x = grep { factor( $v, $_ ) } 1..$v;
-
-	if( ( scalar @x == 2 ) and ( $x[0] == 1 ) and ( $x[1] == $v ) ){
-		$PRIMES{$v}++;
-		return 1;
-	}
-	return 0;
-}
+use lib '../lib';
+use Euler::Prime::Modulus 'is_prime';
 
 sub prime_factor {
 	my $x = shift;
