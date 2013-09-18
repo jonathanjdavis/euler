@@ -1,5 +1,7 @@
+#!/usr/bin/perl
+use strict;
 use lib '../lib';
-use Euler::Prime::Modulus 'is_prime';
+use Euler::Prime::Modulus '+cache';
 
 my @primes = ();
 my $n = 2;
