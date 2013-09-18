@@ -5,9 +5,19 @@ use Data::Dumper;
 sub d {
 	my $n = shift;
 
-	my @divisors = grep { $n % $_ == 0 } ( 1..$n );
+	my $ndivisors = 0;
 
-	return @divisors;
+	my $sqrt = sqrt( $n );
+
+	for( my $i = 1; $i <= $sqrt; $i++ ){
+		$ndivisors += 2 if ( $n % $i == 0 );
+	}
+
+	$ndivisors-- if ( $sqrt * $sqrt == $n );
+
+	print "$n => $ndivisors\n";
+
+	return $ndivisors;
 }
 
 sub t {
@@ -20,24 +30,17 @@ sub t {
 }
 
 my $ndivisors = 0;
-my $n = 1;
+my $number = 1;
+my $i = 1;
 
 my $MAX = 500;
 
-while( $ndivisors <= $MAX ){
-	my $triangle = t( $n );
-	my @d = d( $triangle );
-	$ndivisors = scalar @d;
-
-	print "$n => $ndivisors => [ " . join( ", ", @d ) . " ]\n"
-		if $ENV{VERBOSE};
-
-	last if $ndivisors > $MAX;
-
-	$n++;
+while( d( $number ) < $MAX ){
+	$number += $i;
+	$i++;
 }
 
-print t($n) . " => $ndivisors\n";
+print "$number\n";
 
 __END__
 
