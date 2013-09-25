@@ -7,4 +7,4 @@ for n in range(1,41) :
 for n in range(1,21) :
     y = y * n
 
-print(x/(y*y))
+print(int(x/(y*y)))
